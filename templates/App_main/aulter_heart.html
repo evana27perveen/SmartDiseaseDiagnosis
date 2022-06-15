@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block main %}
+    <div class="container" style="padding: 50px; margin-top: 50px;">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <form method="post" enctype="multipart/form-data" class="form-group">
+                    {% csrf_token %}
+                    <label for="age-id">Age: </label>
+                    <input class="form-control" type="number" id="age-id" name="age">
+                    <label for="gender-id">Gender: </label>
+                    <select class="form-control" name="gender" id="gender-id">
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                    <label for="chest-pain-id">Chest Pain Type: </label>
+                    <select class="form-control" name="chest_pain" id="chest-pain-id">
+                        <option value="1">Typical angina</option>
+                        <option value="2">Atypical angina</option>
+                        <option value="3">Non-anginal pain</option>
+                        <option value="4">Asymptomatic</option>
+                    </select>
+                    <label for="blood-pressure-id">Blood Pressure(only Upper Bound): </label>
+                    <input class="form-control" type="number" id="blood-pressure-id" name="blood_pressure">
+                    <label for="cholesterol-id">Serum Cholesterol</label>
+                    <input class="form-control" type="number" id="cholesterol-id" name="cholesterol">
+                    <label for="fasting-bp-id">Fasting Blood Pressure (>120mg/dl): </label>
+                    <select class="form-control" name="fasting_bp" id="fasting-bp-id">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <label for="resting-electrocardiographic-id">Resting-Electrocardiographic: </label>
+                    <select class="form-control" name="restecg" id="resting-electrocardiographic-id">
+                        <option value="0">Normal</option>
+                        <option value="1">Having ST-T</option>
+                        <option value="2">Hypertrophy</option>
+                    </select>
+{#                    <label for="maximum-heart-rate-id">maximum heart rate achieved</label>#}
+{#                    <input class="form-control" type="number" id="maximum-heart-rate-id" name="maximum_heart_rate">#}
+{#                    <label for="exercise-induced-angina-id">exercise induced angina</label>#}
+{#                    <select class="form-control" name="exang" id="exercise-induced-angina-id">#}
+{#                        <option value="0">No</option>#}
+{#                        <option value="1">Yes</option>#}
+{#                    </select>#}
+{#                    <label for="oldpeak-id">ST depression induced by exercise relative to rest</label>#}
+{#                    <input class="form-control" type="text" id="oldpeak-id" name="oldpeak">#}
+{#                    <label for="the-slope-of-the-peak-exercise-ST-segment-id">number of major vessels colored by#}
+{#                        flourosopy: </label>#}
+{#                    <select class="form-control" name="slop" id="the-slope-of-the-peak-exercise-ST-segment-id">#}
+{#                        <option value="1">Up-sloping</option>#}
+{#                        <option value="2">Flat</option>#}
+{#                        <option value="3">Down-sloping</option>#}
+{#                    </select>#}
+                    <label for="number-of-major-vessels-colored-by-flourosopy-id">number of major vessels colored by
+                        flourosopy: </label>
+                    <select class="form-control" name="ca" id="number-of-major-vessels-colored-by-flourosopy-id">
+                        <option value="0">0-vessel</option>
+                        <option value="1">1-vessel</option>
+                        <option value="2">2-vessel</option>
+                        <option value="3">3-vessel</option>
+                    </select>
+{#                    <label for="thalassemia-id">Thalassemia: </label>#}
+{#                    <select class="form-control" name="thalassemia" id="thalassemia-id">#}
+{#                        <option value="1">Normal</option>#}
+{#                        <option value="2">Fixed Defect</option>#}
+{#                        <option value="3">Reversible Defect</option>#}
+{#                    </select>#}
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+
+                {% ifequal predicted_result 1 %}
+                    <div class="result">
+                        <h3 class="alert-danger" style="padding: 5px;">You Have Heart Disease</h3>
+                    </div>
+                    {% endifequal %}
+                {% ifequal predicted_result 0 %}
+                    <div class="result">
+                        <h3 class="alert-success" style="padding: 5px;">You Don't Have Heart Disease</h3>
+                    </div>
+                {% endifequal %}
+
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+{% endblock %}

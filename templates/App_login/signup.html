@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load crispy_forms_filters %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300;378&family=Source+Sans+Pro:ital@1&family=Zen+Antique&display=swap');
+
+        * {
+            font-family: 'Red Hat Mono', monospace;
+        }
+
+        :root {
+            --First-color: #161624;
+            --Second-color: #f2363c;
+            --third-color: #573b8a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(https://wallpapercave.com/wp/wp2757874.gif);
+            background-size: cover;
+            background-position: right;
+        }
+
+        .main {
+            width: 310px;
+            height: fit-content;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-left: 14%;
+
+        }
+
+        #chk {
+            display: none;
+        }
+
+        .signup {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .user-box, input {
+            position: relative;
+            width: 90% !important;
+            margin: 0px auto;
+        }
+
+        button {
+            width: 60%;
+            height: 40px;
+            margin: 10px auto;
+            justify-content: center;
+            display: block;
+            color: #fff;
+            background: #573b8a;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 10px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            transition: .2s ease-in;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6d44b8;
+        }
+
+        .login {
+            height: 470px;
+            background: #eee;
+            border-radius: 60% / 10%;
+            transform: translateY(-180px);
+            transition: .8s ease-in-out;
+        }
+
+        #chk:checked ~ .login {
+            transform: translateY(-530px);
+        }
+
+        #chk:checked ~ .login label {
+            transform: scale(1);
+        }
+
+        #chk:checked ~ .signup .sig {
+            transform: scale(.6);
+            margin-top: 10px;
+        }
+
+        .user-box label {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            font-size: 16px;
+            color: #fff;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .user-box input {
+            padding: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid #fff;
+            outline: none;
+            background: transparent;
+        }
+
+        .user-box input:focus ~ label,
+        .user-box input:valid ~ label {
+            top: -20px;
+            left: 0;
+            color: #f2363c;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        label[for="chk"] {
+            font-size: 2.3em;
+            justify-content: center;
+            display: flex;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .5s ease-in-out;
+        }
+
+        .sig {
+            color: #fff;
+            margin: 40px;
+        }
+
+        .log {
+            margin: 80px;
+        }
+
+        .login label, .login input {
+            color: #573b8a;
+        }
+
+        .login input {
+            border-color: #573b8a;
+        }
+        form li {
+            display: none;
+        }
+        form div small, #hint_id_username, #hint_id_password2 {
+            display: none;
+        }
+    </style>
+    <style>
+
+
+    .card {
+        border: none;
+        border-radius: 30px;
+        background-color: #f2363c;
+        width: fit-content;
+    }
+
+    .wow-bg {
+        background-color: #141421;
+        border: 1px solid #2e2e4c;
+        box-shadow: 3px 9px 16px rgba(12, 12, 12, 0.4), -3px -3px 10px rgba(255, 255, 255, 0.06), inset 14px 14px 26px rgb(0, 0, 0), inset -3px -3px 15px rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        margin-top: 4px;
+    }
+ label {
+     color: white;
+ }
+  .card-body, main, card {
+      height: fit-content!important;
+  }
+
+    .logn-btn {
+        float: left;
+        background: #1c1f2f;
+        color: #f2363c;
+        border-radius: 30px;
+        overflow: hidden;
+        border: 1px solid #2e344d;
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        -moz-transition: all 0.3s ease-in-out 0s;
+        -ms-transition: all 0.3s ease-in-out 0s;
+        -o-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+        /* box-shadow: 10px 10px 36px rgb(0,0,0,0.5), -13px -13px 23px rgba(255,255,255, 0.03), inset 14px 14px 70px rgb(0,0,0,0.2), inset -15px -15px 30px rgba(255,255,255, 0.04); */
+        box-shadow: 0px 2px 26px rgb(0, 0, 0), 0px 7px 13px rgba(255, 255, 255, 0.03);
+        margin-top: 30px;
+        width: fit-content!important;
+    }
+
+    .logn-btn:hover {
+        background-color: #1c1f2f;
+        border-radius: 50px;
+        min-width: 140px;
+        /* box-shadow: 10px 10px 36px rgb(0,0,0,0.5), -13px -13px 23px rgba(255,255,255, 0.03), inset 14px 14px 70px rgb(0,0,0,0.2), inset -15px -15px 30px rgba(255,255,255, 0.04); */
+        box-shadow: 3px 9px 16px rgba(5, 5, 5, 0.4), -3px -3px 10px rgba(255, 255, 255, 0.06), inset 14px 14px 26px rgb(0, 0, 0, 0.3), inset -3px -3px 15px rgba(255, 255, 255, 0.05);
+        border-width: 1px 0px 0px 1px;
+        border-style: solid;
+        border-color: #2e344d;
+    }
+
+
+
+
+    .form-control:focus {
+        margin-left: 15px!important;
+        border: 1px solid #f2363c;
+        color: #495057;
+        outline: 0;
+        background: rgb(17, 20, 31);
+        border-radius: 4px;
+        transition: all 0.3s ease-in-out 0s;
+        /* box-shadow: 10px 10px 36px rgb(0,0,0,0.5), -13px -13px 23px rgba(255,255,255, 0.03), inset 14px 14px 70px rgb(0,0,0,0.2), inset -15px -15px 30px rgba(255,255,255, 0.04); */
+        box-shadow: 10px 10px 36px rgb(0, 0, 0), -13px -13px 23px rgba(255, 255, 255, 0.03);
+    }
+
+
+
+    .colorboard {
+        color: #f2363c;
+    }
+</style>
+    <title>Signup</title>
+</head>
+<body>
+
+
+
+
+
+
+    <div class="container text-center text-dark mt-5">
+        <div class="row">
+            <div class="col-lg-4 d-block mx-auto mt-5">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-md-12">
+                        <div class="card">
+                            <div class="card-body wow-bg" id="formBg">
+                                <h3 class="colorboard">Signup</h3>
+
+
+                                <div class="main">
+                                    <form method="post" enctype="multipart/form-data" class="form">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            {{ form1|crispy }}
+                                            {{ form2|crispy }}
+                                        </div>
+                                        <input type="submit" class="logn-btn" value="Submit">
+                                    </form>
+
+                                </div>
+                                <hr>
+                                <a href="{% url 'App_login:signup' %}" style="float: left; color: #F2363CFF; margin-top: 10px; margin-left: 30px">Doesn't have an account?</a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!----js---->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
